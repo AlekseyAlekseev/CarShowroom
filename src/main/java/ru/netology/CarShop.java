@@ -6,7 +6,7 @@ import java.util.List;
 public class CarShop {
 
     private final int ARRIVAL_TIME = 10000;
-    private final int SELL_TIME = 5000;
+    private final int SELL_TIME = 1000;
 
     private final List<Car> cars = new ArrayList<>();
 
@@ -15,7 +15,7 @@ public class CarShop {
         return cars;
     }
 
-    public synchronized void receiveCar() {
+    public synchronized void getCar() {
         try {
             System.out.println("Уведомление: В автосалон поступает автомобиль...");
             Thread.sleep(ARRIVAL_TIME);
@@ -29,7 +29,8 @@ public class CarShop {
 
     public synchronized Car sellCar () {
         try {
-            System.out.println("Автосалон: Подбираем нужный автомобиль");
+            System.out.println("Покупатель пришел в автосалон");
+            System.out.println("Автосалон: Подбираем нужный автомобиль...");
             while (getCars().size() == 0) {
                 System.out.println("Автосалон: Запрошенного автомобиля нет в наличии");
                 wait();

@@ -5,7 +5,8 @@ public class Main {
 
         CarShop carShop = new CarShop();
 
-        new Thread(null, carShop::sellCar, "Покупатель").start();
-        new Thread(null, carShop::receiveCar, "Продавец").start();
+
+        new Thread(null, carShop::sellCar).start();
+        new Thread(null, carShop::getCar).start();
     }
 }
