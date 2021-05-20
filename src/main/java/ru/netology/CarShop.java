@@ -5,8 +5,8 @@ import java.util.List;
 
 public class CarShop {
 
-    private final int ARRIVAL_TIME = 10000;
-    private final int SELL_TIME = 1000;
+    private final int ARRIVAL_TIME = 7000;
+    private final int SELL_TIME = 4000;
 
     private final List<Car> cars = new ArrayList<>();
 
@@ -21,7 +21,7 @@ public class CarShop {
             Thread.sleep(ARRIVAL_TIME);
             getCars().add(new Car("BMW"));
             System.out.println("Автосалон: Автомобиль доступен к продаже");
-            notify();
+            notifyAll();
         } catch (InterruptedException err) {
             err.printStackTrace();
         }
@@ -29,7 +29,6 @@ public class CarShop {
 
     public synchronized Car sellCar () {
         try {
-            System.out.println("Покупатель пришел в автосалон");
             System.out.println("Автосалон: Подбираем нужный автомобиль...");
             while (getCars().size() == 0) {
                 System.out.println("Автосалон: Запрошенного автомобиля нет в наличии");
