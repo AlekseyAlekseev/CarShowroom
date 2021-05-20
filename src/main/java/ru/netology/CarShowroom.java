@@ -8,10 +8,17 @@ public class CarShowroom {
     public CarShowroom() {
     }
 
+
     Manufacturer manufacturer = new Manufacturer(this);
+
     private final int SELL_TIME = 2000;
+
     List<Car> cars = new ArrayList<>();
 
+
+    /**
+     * Покупка автомобиля и проверка его наличия
+     */
     public void carSale() {
         synchronized (manufacturer) {
             System.out.println(Thread.currentThread().getName() + " зашел в автосалон");
@@ -25,6 +32,9 @@ public class CarShowroom {
         }
     }
 
+    /**
+     * Запрос на изготовление автомобиля
+     */
     public void gettingCar() {
         synchronized (manufacturer) {
             try {
