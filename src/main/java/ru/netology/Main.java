@@ -3,19 +3,22 @@ package ru.netology;
 public class Main {
     public static void main(String[] args) throws IllegalThreadStateException {
 
-        CarShop carShop = new CarShop();
+        final CarShowroom carShowroom = new CarShowroom();
+        ThreadGroup customerGroup = new ThreadGroup("customerGroup");
 
-        Thread carShopSell1 = new Thread(null, carShop::sellCar, "Покупатель1");
-        Thread carShopSell2 = new Thread(null, carShop::sellCar, "Покупатель2");
-        Thread carShopSell3 = new Thread(null, carShop::sellCar, "Покупатель3");
-        Thread carShopGet = new Thread(null, carShop::getCar);
+        Runnable shopping = carShowroom::carSale;
+        Runnable carProduction = carShowroom::gettingCar;
 
+        Thread customer1 = new Thread(customerGroup, shopping, "Покупатель1");
+        Thread customer2 = new Thread(customerGroup, shopping, "Покупатель2");
+        Thread customer3 = new Thread(customerGroup, shopping, "Покупатель3");
+        Thread factory1 = new Thread(null, carProduction, "BMW");
+        Thread factory2 = new Thread(null, carProduction, "Mercedes");
 
-        carShopSell1.start();
-        carShopSell2.start();
-        carShopSell3.start();
-        carShopGet.start();
-
-
+        customer1.start();
+        customer2.start();
+        customer3.start();
+        factory1.start();
+        factory2.start();
     }
 }
