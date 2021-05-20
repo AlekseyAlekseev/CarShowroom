@@ -4,8 +4,8 @@ public class Main {
     public static void main(String[] args) {
 
         CarShop carShop = new CarShop();
-        Customer customer = new Customer();
 
-        new Thread(customer).start();
+        new Thread(null, carShop::sellCar, "Покупатель").start();
+        new Thread(null, carShop::receiveCar, "Продавец").start();
     }
 }

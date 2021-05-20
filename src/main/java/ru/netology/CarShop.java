@@ -5,8 +5,8 @@ import java.util.List;
 
 public class CarShop {
 
-    private final int ARRIVAL_TIME = 5000;
-    private final int SELL_TIME = 1000;
+    private final int ARRIVAL_TIME = 10000;
+    private final int SELL_TIME = 5000;
 
     private final List<Car> cars = new ArrayList<>();
 
@@ -15,7 +15,7 @@ public class CarShop {
         return cars;
     }
 
-    public synchronized void receiveCur() {
+    public synchronized void receiveCar() {
         try {
             System.out.println("Уведомление: В автосалон поступает автомобиль...");
             Thread.sleep(ARRIVAL_TIME);
