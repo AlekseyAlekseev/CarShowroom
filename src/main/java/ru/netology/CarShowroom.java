@@ -9,8 +9,6 @@ public class CarShowroom {
     }
 
 
-
-
     private final int SELL_TIME = 2000;
 
 

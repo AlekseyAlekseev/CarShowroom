@@ -5,18 +5,15 @@ import java.util.List;
 
 public class Producer {
 
-    //private final CarShowroom carShowroom;
 
-    private int count = 0;
+    // План продаж
     private final int SALES_PLAN = 10;
 
+    // Время на создание авто
     private final int CREATE_AUTO = 3000;
 
     List<Car> cars = new ArrayList<>();
 
-//    public Producer(CarShowroom carShowroom) {
-//        this.carShowroom = carShowroom;
-//    }
 
     public List<Car> getCars() {
         return cars;
@@ -33,7 +30,6 @@ public class Producer {
                 System.out.println("Производитель " + Thread.currentThread().getName() + " выпустил 1 авто");
                 notify();
             }
-
         } catch (InterruptedException err) {
             err.printStackTrace();
         }
