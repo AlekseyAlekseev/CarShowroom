@@ -23,7 +23,7 @@ public class Main {
 
 
         while (true) {
-            if (carShowroom.getSales() < carShowroom.SALES_PLAN) {
+            if (carShowroom.getSales() < CarShowroom.SALES_PLAN) {
                 try {
                     Thread.sleep(buyerVisitTime);
                 } catch (InterruptedException e) {
