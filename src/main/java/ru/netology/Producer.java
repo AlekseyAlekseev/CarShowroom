@@ -11,7 +11,7 @@ public class Producer implements Runnable {
     @Override
     public void run() {
         while (true) {
-            if (carShowroom.getSales() == carShowroom.SALES_PLAN) {
+            if (carShowroom.getSales() == CarShowroom.SALES_PLAN) {
                 break;
             }
             carShowroom.createCar();

@@ -3,13 +3,13 @@ package ru.netology;
 public class CarShowroom {
 
     // Время на покупку
-    private final int SELL_TIME = 2000;
+    private final static int SELL_TIME = 2000;
 
     // План продаж
-    public final int SALES_PLAN = 10;
+    public final static int SALES_PLAN = 10;
 
     // Время на создание авто
-    private final int CREATE_AUTO = 2000;
+    private final static int CREATE_AUTO = 2000;
 
     // Счетчик произведенных авто
     private int product = 0;
