@@ -1,7 +1,7 @@
 package ru.netology;
 
 public class Main {
-    public static void main(String[] args) throws IllegalThreadStateException {
+    public static void main(String[] args) {
 
         CarShowroom carShowroom = new CarShowroom();
         ThreadGroup customerGroup = new ThreadGroup("customerGroup");
