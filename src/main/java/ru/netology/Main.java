@@ -1,23 +1,38 @@
 package ru.netology;
 
 public class Main {
+
+    // Время нового визита покупателя
+    private final static int buyerVisitTime = 7000;
+    // Номер нового потока
+    private static int nameCounter = 3;
+
     public static void main(String[] args) {
+
 
         CarShowroom carShowroom = new CarShowroom();
         ThreadGroup customerGroup = new ThreadGroup("customerGroup");
 
-        Runnable shopping = carShowroom::carSale;
-        Runnable carProduction = carShowroom::createCar;
+        new Thread(customerGroup, new Consumer(carShowroom), "Покупатель1").start();
+        new Thread(customerGroup, new Consumer(carShowroom), "Покупатель2").start();
+        new Thread(customerGroup, new Consumer(carShowroom), "Покупатель3").start();
 
-        Thread customer1 = new Thread(customerGroup, shopping, "Покупатель1");
-        Thread customer2 = new Thread(customerGroup, shopping, "Покупатель2");
-        Thread customer3 = new Thread(customerGroup, shopping, "Покупатель3");
-        Thread factory1 = new Thread(null, carProduction, "BMW");
+        Thread producer = new Thread(null, new Producer(carShowroom), "BMW");
+        producer.setDaemon(true);
+        producer.start();
 
 
-        customer1.start();
-        customer2.start();
-        customer3.start();
-        factory1.start();
+        while (true) {
+            if (carShowroom.getSales() < carShowroom.SALES_PLAN) {
+                try {
+                    Thread.sleep(buyerVisitTime);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+                new Thread(null, new Consumer(carShowroom), "Покупатель " + ++nameCounter).start();
+            } else {
+                break;
+            }
+        }
     }
 }

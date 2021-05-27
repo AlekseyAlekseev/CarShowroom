@@ -1,56 +1,61 @@
 package ru.netology;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CarShowroom {
 
     // Время на покупку
     private final int SELL_TIME = 2000;
 
     // План продаж
-    private final int SALES_PLAN = 10;
+    public final int SALES_PLAN = 10;
 
     // Время на создание авто
-    private final int CREATE_AUTO = 1000;
+    private final int CREATE_AUTO = 2000;
 
-    List<Car> cars = new ArrayList<>();
+    // Счетчик произведенных авто
+    private int product = 0;
 
+    // Счетчик проданных авто
+    private int sales = 0;
 
-    public List<Car> getCars() {
-        return cars;
+    public int getSales() {
+        return sales;
+    }
+
+    public int getProduct() {
+        return product;
     }
 
 
-    public synchronized void createCar() {
-        try {
-            while (getCars().size() < SALES_PLAN) {
-                Thread.sleep(CREATE_AUTO);
-                getCars().add(new Car());
-                System.out.println("Производитель " + Thread.currentThread().getName() + " выпустил 1 авто");
-                notify();
-            }
-        } catch (InterruptedException err) {
-            err.printStackTrace();
-        }
-    }
-
-
-    /**
-     * Покупка автомобиля и проверка его наличия
-     */
     public synchronized void carSale() {
-        System.out.println(Thread.currentThread().getName() + " зашел в автосалон");
         try {
-            while (getCars().size() == 0) {
-                System.out.println("Автосалон: Запрошенного автомобиля нет в наличии");
+            while (product == 0) {
                 wait();
             }
             Thread.sleep(SELL_TIME);
-            System.out.println(Thread.currentThread().getName() + " уехал на новеньком автомобиле");
-            getCars().remove(0);
-        } catch (InterruptedException err) {
-            err.printStackTrace();
+            product--;
+            sales++;
+            notifyAll();
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+        }
+
+    }
+
+    /**
+     * Добавление нового автомобился в салон
+     */
+    public synchronized void createCar() {
+        try {
+            while (product > 0) {
+                wait();
+            }
+            Thread.sleep(CREATE_AUTO);
+            product++;
+            System.out.println("Производитель выпустил 1 авто");
+            notify();
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
         }
     }
 }
+
